@@ -1,30 +1,30 @@
-package com.example.android.githubsearchwithsqlite;
+package com.example.android.chemapp;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.githubsearchwithsqlite.data.GitHubRepo;
+import com.example.android.chemapp.data.ChemElement;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class GitHubSearchAdapter extends RecyclerView.Adapter<GitHubSearchAdapter.SearchResultViewHolder> {
-    private List<GitHubRepo> mSearchResultsList;
+public class ElementSearchAdapter extends RecyclerView.Adapter<ElementSearchAdapter.SearchResultViewHolder> {
+    private List<ChemElement> mSearchResultsList;
     private OnSearchResultClickListener mResultClickListener;
 
     interface OnSearchResultClickListener {
-        void onSearchResultClicked(GitHubRepo repo);
+        void onSearchResultClicked(ChemElement ele);
     }
 
-    public GitHubSearchAdapter(OnSearchResultClickListener listener) {
+    public ElementSearchAdapter(OnSearchResultClickListener listener) {
         mResultClickListener = listener;
     }
 
-    public void updateSearchResults(List<GitHubRepo> searchResultsList) {
+    public void updateSearchResults(List<ChemElement> searchResultsList) {
         mSearchResultsList = searchResultsList;
         notifyDataSetChanged();
     }
@@ -68,8 +68,8 @@ public class GitHubSearchAdapter extends RecyclerView.Adapter<GitHubSearchAdapte
             });
         }
 
-        void bind(GitHubRepo repo) {
-            mSearchResultTV.setText(repo.full_name);
+        void bind(ChemElement ele) {
+            mSearchResultTV.setText(ele.name);
         }
     }
 }

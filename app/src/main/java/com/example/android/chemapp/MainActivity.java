@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithsqlite;
+package com.example.android.chemapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,14 +23,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.android.githubsearchwithsqlite.data.GitHubRepo;
-import com.example.android.githubsearchwithsqlite.data.Status;
+import com.example.android.chemapp.data.ChemElement;
+import com.example.android.chemapp.data.Status;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements GitHubSearchAdapter.OnSearchResultClickListener, NavigationView.OnNavigationItemSelectedListener {
+        implements ElementSearchAdapter.OnSearchResultClickListener, NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView mSearchResultsRV;
@@ -40,9 +39,9 @@ public class MainActivity extends AppCompatActivity
     private TextView mErrorMessageTV;
     private DrawerLayout mDrawerLayout;
 
-    private GitHubSearchAdapter mGitHubSearchAdapter;
+    private ElementSearchAdapter mElementSearchAdapter;
 
-    private GitHubSearchViewModel mViewModel;
+    private ChemAppViewModel mViewModel;
 
 
     @Override
@@ -63,20 +62,20 @@ public class MainActivity extends AppCompatActivity
         mSearchResultsRV.setLayoutManager(new LinearLayoutManager(this));
         mSearchResultsRV.setHasFixedSize(true);
 
-        mGitHubSearchAdapter = new GitHubSearchAdapter(this);
-        mSearchResultsRV.setAdapter(mGitHubSearchAdapter);
+        mElementSearchAdapter = new ElementSearchAdapter(this);
+        mSearchResultsRV.setAdapter(mElementSearchAdapter);
 
         mLoadingIndicatorPB = findViewById(R.id.pb_loading_indicator);
         mErrorMessageTV = findViewById(R.id.tv_error_message);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        mViewModel = new ViewModelProvider(this).get(GitHubSearchViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(ChemAppViewModel.class);
 
-        mViewModel.getSearchResults().observe(this, new Observer<List<GitHubRepo>>() {
+        mViewModel.getSearchResults().observe(this, new Observer<List<ChemElement>>() {
             @Override
-            public void onChanged(List<GitHubRepo> gitHubRepos) {
-                mGitHubSearchAdapter.updateSearchResults(gitHubRepos);
+            public void onChanged(List<ChemElement> ChemElements) {
+                mElementSearchAdapter.updateSearchResults(ChemElements);
             }
         });
 
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 String searchQuery = mSearchBoxET.getText().toString();
                 if (!TextUtils.isEmpty(searchQuery)) {
-                    doGitHubSearch(searchQuery);
+                    getPeriodicTable(searchQuery);
                 }
             }
         });
@@ -143,35 +142,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSearchResultClicked(GitHubRepo repo) {
-        Intent intent = new Intent(this, RepoDetailActivity.class);
-        intent.putExtra(RepoDetailActivity.EXTRA_GITHUB_REPO, repo);
+    public void onSearchResultClicked(ChemElement repo) {
+        Intent intent = new Intent(this, ElementDetailActivity.class);
+        intent.putExtra(ElementDetailActivity.EXTRA_CHEM_ELEMENT, repo);
         startActivity(intent);
     }
 
-    private void doGitHubSearch(String searchQuery) {
+    private void getPeriodicTable(String searchQuery) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String sort = preferences.getString(
-                getString(R.string.pref_sort_key),
-                getString(R.string.pref_sort_default)
-        );
-        String language = preferences.getString(
-                getString(R.string.pref_language_key),
-                getString(R.string.pref_language_default)
-        );
-        String user = preferences.getString(
-                getString(R.string.pref_user_key), ""
-        );
-        boolean searchInName = preferences.getBoolean(
-                getString(R.string.pref_in_name_key), true
-        );
-        boolean searchInDescription = preferences.getBoolean(
-                getString(R.string.pref_in_description_key), true
-        );
-        boolean searchInReadme = preferences.getBoolean(
-                getString(R.string.pref_in_readme_key), true
-        );
-        mViewModel.loadSearchResults(searchQuery, sort, language, user, searchInName,
-                searchInDescription, searchInReadme);
+        mViewModel.loadSearchResults(searchQuery);
     }
 }

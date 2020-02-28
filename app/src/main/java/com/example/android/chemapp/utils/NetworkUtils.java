@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithsqlite.utils;
+package com.example.android.chemapp.utils;
 
 import java.io.IOException;
 

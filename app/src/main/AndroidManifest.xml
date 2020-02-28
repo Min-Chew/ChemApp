@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.githubsearchwithsqlite">
+    package="com.example.android.chemapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SavedReposActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name="com.example.android.chemapp.SavedReposActivity"
+            android:parentActivityName="com.example.android.chemapp.MainActivity"/>
         <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.example.android.chemapp.SettingsActivity"
+            android:parentActivityName="com.example.android.chemapp.MainActivity" />
         <activity
-            android:name=".RepoDetailActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.example.android.chemapp.ElementDetailActivity"
+            android:parentActivityName="com.example.android.chemapp.MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.android.chemapp.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

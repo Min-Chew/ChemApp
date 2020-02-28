@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RepoDetailActivity">
+    tools:context=".ElementDetailActivity">
 
     <TextView
-        android:id="@+id/tv_repo_name"
+        android:id="@+id/tv_element_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textSize="32sp"
         android:textColor="#000"
-        android:text="Dummy repo name"/>
+        android:text="Dummy element name"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:src="@drawable/ic_star_border_black_24dp"/>
 
         <TextView
-            android:id="@+id/tv_repo_stars"
+            android:id="@+id/tv_element_stars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -37,11 +37,20 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_repo_description"
+        android:id="@+id/tv_element_atomic_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="32sp"
+        android:textColor="#000"
+        android:text="Dummy element name"/>
+
+    <TextView
+        android:id="@+id/tv_element_atomic_radius"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textSize="22sp"
-        android:text="Dummy description"/>
+        android:text="Dummy attributes"/>
 
 </LinearLayout>

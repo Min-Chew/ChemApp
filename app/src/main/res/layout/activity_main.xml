@@ -2,12 +2,12 @@
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -23,22 +23,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <EditText
                 android:id="@+id/et_search_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:hint="@string/search_box_hint"/>
+                android:hint="@string/search_box_hint"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/search_button_text"
-                android:textSize="22sp"/>
+                android:textSize="18sp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -53,10 +53,10 @@
                     android:id="@+id/tv_error_message"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textSize="20sp"
                     android:padding="16dp"
-                    android:visibility="invisible"
-                    android:text="@string/loading_error"/>
+                    android:text="@string/loading_error"
+                    android:textSize="20sp"
+                    android:visibility="invisible" />
 
                 <ProgressBar
                     android:id="@+id/pb_loading_indicator"
@@ -64,7 +64,7 @@
                     android:layout_height="72dp"
                     android:layout_gravity="top|center_horizontal"
                     android:layout_marginTop="32dp"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
             </FrameLayout>
 
         </LinearLayout>

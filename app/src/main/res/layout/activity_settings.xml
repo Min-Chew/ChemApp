@@ -5,5 +5,5 @@
     android:id="@+id/settings_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.android.githubsearchwithsqlite.SettingsFragment"
-    tools:context="com.example.android.githubsearchwithsqlite.SettingsActivity" />
+    android:name="com.example.android.chemapp.SettingsFragment"
+    tools:context="com.example.android.chemapp.SettingsActivity" />

@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithsqlite.data;
+package com.example.android.chemapp.data;
 
 public enum Status {
     LOADING,

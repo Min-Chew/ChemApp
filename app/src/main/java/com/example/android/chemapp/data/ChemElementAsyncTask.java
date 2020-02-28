@@ -1,21 +1,24 @@
-package com.example.android.githubsearchwithsqlite.data;
+package com.example.android.chemapp.data;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
-import com.example.android.githubsearchwithsqlite.utils.GitHubUtils;
-import com.example.android.githubsearchwithsqlite.utils.NetworkUtils;
+import com.example.android.chemapp.utils.ChemElementUtils;
+import com.example.android.chemapp.utils.NetworkUtils;
 
 import java.io.IOException;
 import java.util.List;
 
-public class GitHubSearchAsyncTask extends AsyncTask<String, Void, String> {
+import static android.content.ContentValues.TAG;
+
+public class ChemElementAsyncTask extends AsyncTask<String, Void, String> {
     private Callback mCallback;
 
     public interface Callback {
-        void onSearchFinished(List<GitHubRepo> searchResults);
+        void onSearchFinished(List<ChemElement> searchResults);
     }
 
-    public GitHubSearchAsyncTask(Callback callback) {
+    public ChemElementAsyncTask(Callback callback) {
         mCallback = callback;
     }
 
@@ -33,9 +36,10 @@ public class GitHubSearchAsyncTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        List<GitHubRepo> searchResults = null;
+        List<ChemElement> searchResults = null;
         if (s != null) {
-            searchResults = GitHubUtils.parseGitHubSearchResults(s);
+            searchResults = ChemElementUtils.parseElementSearchResults(s);
+            Log.d(TAG, "RETURNED JSON" + searchResults);
         }
         mCallback.onSearchFinished(searchResults);
     }

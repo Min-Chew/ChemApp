@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithsqlite;
+package com.example.android.chemapp;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

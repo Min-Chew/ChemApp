@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.android.githubsearchwithsqlite"
+        applicationId "com.example.android.chemapp"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -31,6 +31,7 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:4.3.1'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.conscrypt:conscrypt-android:2.2.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
