@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.android.chemapp.data.ChemElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,12 @@ public class ElementSearchAdapter extends RecyclerView.Adapter<ElementSearchAdap
 
     public void updateSearchResults(List<ChemElement> searchResultsList) {
         mSearchResultsList = searchResultsList;
+        notifyDataSetChanged();
+    }
+
+    public void updateList(List<ChemElement> newList) {
+        mSearchResultsList = new ArrayList<>();
+        mSearchResultsList.addAll(newList);
         notifyDataSetChanged();
     }
 

@@ -15,24 +15,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.android.chemapp.data.ChemElement;
 import com.example.android.chemapp.data.Status;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements ElementSearchAdapter.OnSearchResultClickListener, NavigationView.OnNavigationItemSelectedListener {
+        implements ElementSearchAdapter.OnSearchResultClickListener, NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private List<ChemElement> results;
     private RecyclerView mSearchResultsRV;
     private EditText mSearchBoxET;
     private ProgressBar mLoadingIndicatorPB;
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,6 +83,8 @@ public class MainActivity extends AppCompatActivity
         mViewModel.getSearchResults().observe(this, new Observer<List<ChemElement>>() {
             @Override
             public void onChanged(List<ChemElement> ChemElements) {
+                results = ChemElements;
+                //repo.name = "donut";
                 mElementSearchAdapter.updateSearchResults(ChemElements);
             }
         });
@@ -96,14 +106,34 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Button searchButton = findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        getPeriodicTable("dummy_text"); //passing trash because nothing is being done to the passed variable
+//        Button searchButton = findViewById(R.id.btn_search);
+//        searchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) { //this on click is not needed as far as I can tell
+//                String searchQuery = mSearchBoxET.getText().toString();
+//                if (!TextUtils.isEmpty(searchQuery)) {
+//                    onQueryTextChange(searchQuery);
+//                }
+//            }
+//        });
+
+        mSearchBoxET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String searchQuery = mSearchBoxET.getText().toString();
-                if (!TextUtils.isEmpty(searchQuery)) {
-                    getPeriodicTable(searchQuery);
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                final StringBuilder sb = new StringBuilder(s.length());
+                sb.append(s);
+                    onQueryTextChange(sb.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -145,11 +175,43 @@ public class MainActivity extends AppCompatActivity
     public void onSearchResultClicked(ChemElement repo) {
         Intent intent = new Intent(this, ElementDetailActivity.class);
         intent.putExtra(ElementDetailActivity.EXTRA_CHEM_ELEMENT, repo);
+        //Log.d(TAG, "onSearchResultClicked: " + repo.name);
         startActivity(intent);
     }
 
     private void getPeriodicTable(String searchQuery) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         mViewModel.loadSearchResults(searchQuery);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        Log.d(TAG, "onQueryTextChange");
+        String userInput = newText.toLowerCase();
+        List<ChemElement> newList = new ArrayList<>();
+
+        if(newText.equals("")) {
+            //do nothing
+            /*for (int i = 0; i < results.size(); i++) {
+                newList.add(results.get(i));
+            }*/
+        }
+        else {
+            for (int i = 0; i < results.size(); i++) {
+                String AtmNum = Integer.toString(results.get(i).atomicNumber);
+                if (results.get(i).name.toLowerCase().contains(userInput)) {
+                    newList.add(results.get(i));
+                } else if (AtmNum.contains(userInput)) {
+                    newList.add(results.get(i));
+                }
+            }
+        }
+        mElementSearchAdapter.updateList(newList);
+        return false;
     }
 }

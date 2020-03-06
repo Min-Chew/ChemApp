@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Periodic Table</string>
     <string name="search_box_hint">Element / Z num</string>
-    <string name="search_button_text">Do Search</string>
+    <string name="search_button_text">Search</string>
     <string name="loading_error">We were unable to execute your query.  Check your internet connection.</string>
     <string name="action_share">Share</string>
     <string name="action_view_on_web">View repo on GitHub</string>
