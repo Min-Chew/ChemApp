@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class ElementDetailActivity extends AppCompatActivity {
     public static final String EXTRA_CHEM_ELEMENT = "ChemElement";
+    private static final String TAG = "ElementDetailActivity";
 
     private ChemElement mRepo;
 
@@ -60,7 +62,7 @@ public class ElementDetailActivity extends AppCompatActivity {
 
     private void viewWikiOnWeb() {
         if (mRepo != null) {
-            Uri repoUri = Uri.parse("https://en.wikipedia.org/wiki/Carbon"); // hardcoded Carbon's wiki but should be refactored to be dynamic
+            Uri repoUri = Uri.parse("https://en.wikipedia.org/wiki/" + mRepo.name);
             Intent webIntent = new Intent(Intent.ACTION_VIEW, repoUri);
 
             PackageManager pm = getPackageManager();

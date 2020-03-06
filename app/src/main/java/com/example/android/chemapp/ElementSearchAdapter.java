@@ -1,16 +1,24 @@
 package com.example.android.chemapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
+import java.util.ArrayList;
 
 import com.example.android.chemapp.data.ChemElement;
 
+import java.io.FilterReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static android.content.ContentValues.TAG;
 
 public class ElementSearchAdapter extends RecyclerView.Adapter<ElementSearchAdapter.SearchResultViewHolder> {
     private List<ChemElement> mSearchResultsList;
@@ -25,9 +33,16 @@ public class ElementSearchAdapter extends RecyclerView.Adapter<ElementSearchAdap
     }
 
     public void updateSearchResults(List<ChemElement> searchResultsList) {
-        mSearchResultsList = searchResultsList;
+            mSearchResultsList = searchResultsList;
+            notifyDataSetChanged();
+    }
+
+    public void updateList(List<ChemElement> newList) {
+        mSearchResultsList = new ArrayList<>();
+        mSearchResultsList.addAll(newList);
         notifyDataSetChanged();
     }
+
 
     @Override
     public int getItemCount() {
